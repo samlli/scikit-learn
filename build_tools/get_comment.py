@@ -5,6 +5,7 @@
 import os
 
 import requests
+from security import safe_requests
 
 
 def get_versions(versions_file):
@@ -241,8 +242,7 @@ def find_lint_bot_comments(repo, token, pr_number):
     """Get the comment from the linting bot."""
     # repo is in the form of "org/repo"
     # API doc: https://docs.github.com/en/rest/issues/comments?apiVersion=2022-11-28#list-issue-comments  # noqa
-    response = requests.get(
-        f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments",
+    response = safe_requests.get(f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments",
         headers=get_headers(token),
     )
     response.raise_for_status()
