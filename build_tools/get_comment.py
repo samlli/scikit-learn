@@ -244,7 +244,7 @@ def find_lint_bot_comments(repo, token, pr_number):
     response = requests.get(
         f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments",
         headers=get_headers(token),
-    )
+    timeout=60)
     response.raise_for_status()
     all_comments = response.json()
 
@@ -280,7 +280,7 @@ def create_or_update_comment(comment, message, repo, pr_number, token):
             f"https://api.github.com/repos/{repo}/issues/comments/{comment['id']}",
             headers=get_headers(token),
             json={"body": message},
-        )
+        timeout=60)
     else:
         print("creating new comment")
         # API doc: https://docs.github.com/en/rest/issues/comments?apiVersion=2022-11-28#create-an-issue-comment  # noqa
@@ -288,7 +288,7 @@ def create_or_update_comment(comment, message, repo, pr_number, token):
             f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments",
             headers=get_headers(token),
             json={"body": message},
-        )
+        timeout=60)
 
     response.raise_for_status()
 
