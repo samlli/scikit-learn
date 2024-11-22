@@ -47,6 +47,7 @@ from pathlib import Path
 import click
 from jinja2 import Environment
 from packaging.version import Version
+from security import safe_command
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -419,8 +420,7 @@ build_metadata_list = [
 
 def execute_command(command_list):
     logger.debug(" ".join(command_list))
-    proc = subprocess.Popen(
-        command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+    proc = safe_command.run(subprocess.Popen, command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
 
     out, err = proc.communicate()
