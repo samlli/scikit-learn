@@ -7,8 +7,6 @@ If the test are run, the first execution will be long (typically a bit
 more than a couple of minutes) but as the dataset loader is leveraging
 joblib, successive runs will be fast (less than 200ms).
 """
-
-import random
 from functools import partial
 
 import numpy as np
@@ -17,6 +15,7 @@ import pytest
 from sklearn.datasets import fetch_lfw_pairs, fetch_lfw_people
 from sklearn.datasets.tests.test_common import check_return_X_y
 from sklearn.utils._testing import assert_array_equal
+import secrets
 
 FAKE_NAMES = [
     "Abdelatif_Smith",
@@ -45,7 +44,7 @@ def mock_data_home(tmp_path_factory):
     lfw_home = data_dir / "lfw_home"
     lfw_home.mkdir(parents=True, exist_ok=True)
 
-    random_state = random.Random(42)
+    random_state = secrets.SystemRandom().Random(42)
     np_rng = np.random.RandomState(42)
 
     # generate some random jpeg files for each person
