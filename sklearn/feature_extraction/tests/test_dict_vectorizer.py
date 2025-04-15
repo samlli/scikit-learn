@@ -2,7 +2,6 @@
 #          Dan Blanchard <dblanchard@ets.org>
 # License: BSD 3 clause
 
-from random import Random
 
 import numpy as np
 import pytest
@@ -12,6 +11,7 @@ from numpy.testing import assert_allclose, assert_array_equal
 from sklearn.exceptions import NotFittedError
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_selection import SelectKBest, chi2
+import secrets
 
 
 @pytest.mark.parametrize("sparse", (True, False))
@@ -150,7 +150,7 @@ def test_unseen_or_no_features():
 def test_deterministic_vocabulary(global_random_seed):
     # Generate equal dictionaries with different memory layouts
     items = [("%03d" % i, i) for i in range(1000)]
-    rng = Random(global_random_seed)
+    rng = secrets.SystemRandom().Random(global_random_seed)
     d_sorted = dict(items)
     rng.shuffle(items)
     d_shuffled = dict(items)
