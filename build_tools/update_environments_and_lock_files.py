@@ -465,7 +465,7 @@ def get_package_with_constraint(package_name, build_metadata, uses_pip=False):
     return f"{package_name}{constraint}{comment}"
 
 
-environment = Environment(trim_blocks=True, lstrip_blocks=True)
+environment = Environment(trim_blocks=True, lstrip_blocks=True, autoescape=True)
 environment.filters["get_package_with_constraint"] = get_package_with_constraint
 
 
