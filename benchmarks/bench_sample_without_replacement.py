@@ -6,7 +6,6 @@ Benchmarks for sampling without replacement of integer.
 import gc
 import operator
 import optparse
-import random
 import sys
 from datetime import datetime
 
@@ -14,6 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from sklearn.utils.random import sample_without_replacement
+import secrets
 
 
 def compute_time(t_start, delta):
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     ###########################################################################
     # Set Python core input
     sampling_algorithm["python-core-sample"] = (
-        lambda n_population, n_sample: random.sample(range(n_population), n_sample)
+        lambda n_population, n_sample: secrets.SystemRandom().sample(range(n_population), n_sample)
     )
 
     ###########################################################################
